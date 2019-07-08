@@ -1,6 +1,7 @@
 /.git/
 /.vscode/
 /docs/
+/src/
 /node_modules/
 .gitignore
 .npmignore

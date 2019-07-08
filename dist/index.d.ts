@@ -1,11 +1,2 @@
-export interface ExcelPluginConfig {}
-
-export interface ExcelPlugin {
-  hello(): void;
-  exportByDom(dom: any, fileName: string): void;
-}
-
-
-declare module 'exceljs-plugin' {
-  export const GaoxinExcelExport: ExcelPlugin;
-}
+import * as exel from './excel-plugin';
+export declare const GaoxinExcelExport: exel.ExcelPluginImpl;

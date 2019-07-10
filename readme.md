@@ -239,6 +239,10 @@ export class TestComponent implements OnInit {
 
 所以要使用
 
-```javascrpit
+```javaScript
 this.table.tableMainElement.nativeElement
 ```
+
+## 问题
+
+[bug提交](http://172.72.100.37:13530/SoftwareDevelopment/exceljs-plugin/issues)

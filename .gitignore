@@ -50,3 +50,4 @@ Thumbs.db
 dist.zip
 dist.tar.gz
 /.vscode
+*.xlsx

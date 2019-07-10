@@ -1,4 +1,9 @@
-export interface ExcelPluginConfig {}
+export interface ExcelPluginOption {
+  filName: string;
+  header?: Header[];
+  data: any[];
+  mergeCells?: string[];
+}
 
 export interface Header {
   header: string;
@@ -7,6 +12,6 @@ export interface Header {
 }
 
 export interface ExcelPlugin {
-  export(data: any[], header: Header[], fileName: string): void;
+  export(option: ExcelPluginOption): void;
   exportByDom(dom: any, fileName: string): void;
 }

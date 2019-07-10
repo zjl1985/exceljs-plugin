@@ -90,7 +90,6 @@ export class HandleForDom {
         const colSpan = th.colSpan ? th.colSpan : 0;
         const rowSpan = th.rowSpan ? th.rowSpan : 0;
         if (rows[i][celIndex] !== this.seat) {
-          // shift++;
           celIndex++;
           j--;
           continue;

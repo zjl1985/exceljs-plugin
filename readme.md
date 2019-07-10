@@ -97,6 +97,8 @@ const  opt={
 GaoxinExcelExport.export(opt);  
 ```
 
+通过head可以控制显示的列数,比如数据里面有10列,`header`有两列，那么只会导出这2列
+
 ### 例子😆
 
 下面使用`NG-ZORRO`的`nz-table`组件做一个例子
@@ -241,6 +243,23 @@ export class TestComponent implements OnInit {
 
 ```javaScript
 this.table.tableMainElement.nativeElement
+```
+
+- 单元格内嵌其他元素
+
+插件无法判断`<td>`内部的dom元素(目前仅可以判断一层的input text);
+
+所以如果存在如下情况，可以使用一个通用的class:`display-excel`来处理
+
+> 例子:
+
+```html
+<td>
+<!-- 这个隐藏的标签来绑定要导出的数据值 -->
+<span class="display-excel" style="dispaly:none">{{value}}</span>
+<!-- 其他标签是页面显示的内容，比如按钮或者其他元素 -->
+<button>...
+</td>
 ```
 
 ## 问题

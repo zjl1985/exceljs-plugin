@@ -8,13 +8,13 @@ export class HandleForData {
       console.warn('没有数据要导出,请不要盲目调用');
       return;
     }
-    if (option.filName == undefined || option.filName.trim() === '') {
+    if (option.fileName == undefined || option.fileName.trim() === '') {
       console.warn('没有设置导出文件名,默认使用export');
-      option.filName = 'export';
+      option.fileName = 'export';
     }
     const workbook: Workbook = this.processWorkbook(option);
     const process = new FileProcess();
-    process.saveFile(workbook, option.filName.trim());
+    process.saveFile(workbook, option.fileName.trim());
   }
 
   public processWorkbook(
@@ -24,6 +24,11 @@ export class HandleForData {
     let workbook: Workbook = mybook ? mybook : new Excel.Workbook();
     const sheet: Worksheet = workbook.addWorksheet('sheet1');
     if (option.header) {
+      for (const header of option.header) {
+        if (!header.width) {
+          header.width = 15;
+        }
+      }
       sheet.columns = option.header;
     } else {
       const columns: Header[] = [];

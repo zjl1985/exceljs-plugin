@@ -1,5 +1,10 @@
 import { HandleForDom } from './handle-for-dom';
-import { ExcelPlugin, Header, ExcelPluginOption } from './interface';
+import {
+  ExcelPlugin,
+  Header,
+  ExcelPluginOption,
+  ExcelPluginByDomOption,
+} from './interface';
 import { HandleForData } from './handle-for-data';
 export class ExcelPluginImpl implements ExcelPlugin {
   constructor() {}
@@ -10,6 +15,16 @@ export class ExcelPluginImpl implements ExcelPlugin {
 
   exportByDom(dom: any, fileName: string): void {
     const handel = new HandleForDom();
-    handel.save(dom, name);
+    handel.save(dom, fileName);
+  }
+
+  exportByDomPlugin(
+    dom: any,
+    fileName: string,
+    opt: ExcelPluginByDomOption,
+    headerAndFooter?: { header?: string[][]; footer?: string[][] },
+  ): void {
+    const handel = new HandleForDom();
+    handel.savePlugin(dom, fileName, opt, headerAndFooter);
   }
 }

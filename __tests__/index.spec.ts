@@ -8,7 +8,7 @@ test('GaoxinExcelExport', () => {
     { header: 'a', key: 'a' },
     { header: 'bbbb', key: 'b', style: { alignment: { horizontal: 'center' } } },
   ];
-  const data = [{ a: 'nihao', b: 1 }, { a: 'hello', b: 'world' }];
+  const data = [{ a: 'nihsdfffffffffffffffffffffffffffao', b: 1 }, { a: 'helsdafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafafaflo', b: 'world' }];
   const workbookMy = new Excel.Workbook();
   const opt: ExcelPluginOption = {
     fileName: 'eee',
@@ -16,7 +16,7 @@ test('GaoxinExcelExport', () => {
     data: data,
   };
   const workboot = handel.processWorkbook(opt, workbookMy);
-  workboot.xlsx.writeFile('./test.xlsx').then(() => {
+   workboot.xlsx.writeFile('./test.xlsx').then(() => {
     expect('hello').toBe('hello');
   });
 });

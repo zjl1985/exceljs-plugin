@@ -2,7 +2,25 @@ export interface ExcelPluginOption {
   fileName: string;
   header?: Header[];
   data: any[];
+  //需要合并的单元格 ['A1:B1','A2:C12']
   mergeCells?: string[];
+  //列宽 {A:12}
+  columnWidth?: { [key: string]: number };
+  //列样式
+  columnStyle?: { [key: string]: Style };
+  //是否自动换行
+  enbaleWrapText?: boolean;
+}
+
+export interface ExcelPluginByDomOption {
+  //需要合并的单元格 ['A1:B1','A2:C12']
+  mergeCells?: string[];
+  //列宽 {A:12}
+  columnWidth?: { [key: string]: number };
+  //列样式
+  columnStyle?: { [key: string]: Style };
+  //是否自动换行
+  enbaleWrapText?: boolean;
 }
 
 export interface Header {
@@ -33,4 +51,10 @@ export interface Style {
 export interface ExcelPlugin {
   export(option: ExcelPluginOption): void;
   exportByDom(dom: any, fileName: string): void;
+  exportByDomPlugin(
+    dom: any,
+    fileName: string,
+    opt: any,
+    headerAndFooter: any,
+  ): void;
 }

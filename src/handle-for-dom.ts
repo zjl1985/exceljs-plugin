@@ -10,7 +10,7 @@ export class HandleForDom {
   //高度系数
   heightRatio = 0.6;
   //宽度系数
-  widthRatio = 0.08;
+  widthRatio = 0.12;
 
   enbaleWrapText: boolean = true;
 

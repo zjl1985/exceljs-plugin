@@ -4,6 +4,7 @@ import {
   Header,
   ExcelPluginOption,
   ExcelPluginByDomOption,
+  hfRow,
 } from './interface';
 import { HandleForData } from './handle-for-data';
 export class ExcelPluginImpl implements ExcelPlugin {
@@ -22,7 +23,7 @@ export class ExcelPluginImpl implements ExcelPlugin {
     dom: any,
     fileName: string,
     opt: ExcelPluginByDomOption,
-    headerAndFooter?: { header?: string[][]; footer?: string[][] },
+    headerAndFooter?: { header?: hfRow[]; footer?: hfRow[] },
   ): void {
     const handel = new HandleForDom();
     handel.savePlugin(dom, fileName, opt, headerAndFooter);

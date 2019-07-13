@@ -1,6 +1,6 @@
 {
   "name": "exceljs-plugin",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "plugin for ng",
   "main": "./dist/index.js",
   "author": "zhangjunlong<zjl198544@163.com>",

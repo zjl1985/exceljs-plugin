@@ -2,7 +2,7 @@ import * as Excel from 'exceljs/dist/exceljs.min';
 import { Workbook, Worksheet, Row, Cell } from 'exceljs';
 import { INDEX_TO_LETTER } from './basic-data';
 import { FileProcess } from './file-process';
-import { Style, ExcelPluginByDomOption } from './interface';
+import { Style, ExcelPluginByDomOption, hfRow } from './interface';
 
 export class HandleForDom {
   //占位符
@@ -24,7 +24,7 @@ export class HandleForDom {
     dom: any,
     name: string,
     opt?: ExcelPluginByDomOption,
-    headerAndFooter?: { header?: string[][]; footer?: string[][] },
+    headerAndFooter?: { header?: hfRow[]; footer?: hfRow[] },
   ) {
     if (opt.enbaleWrapText !== undefined) {
       this.enbaleWrapText = opt.enbaleWrapText;
@@ -37,25 +37,21 @@ export class HandleForDom {
   public processWorkbook(
     dom: any,
     opt?: ExcelPluginByDomOption,
-    headerAndFooter?: { header?: string[][]; footer?: string[][] },
+    headerAndFooter?: { header?: hfRow[]; footer?: hfRow[] },
   ): Workbook {
     const workbook: Workbook = new Excel.Workbook();
     const sheet: Worksheet = workbook.addWorksheet('sheet1');
-    if (
-      headerAndFooter &&
-      headerAndFooter.header &&
-      headerAndFooter.header.length > 0
-    ) {
-      sheet.addRows(headerAndFooter.header);
+    if (headerAndFooter && headerAndFooter.header && headerAndFooter.header.length > 0) {
+      for (const item of headerAndFooter.header) {
+        this.buildHF(sheet, item);
+      }
     }
     this.buildHead(sheet, dom);
     this.buildBody(sheet, dom);
-    if (
-      headerAndFooter &&
-      headerAndFooter.footer &&
-      headerAndFooter.footer.length > 0
-    ) {
-      sheet.addRows(headerAndFooter.footer);
+    if (headerAndFooter && headerAndFooter.footer && headerAndFooter.footer.length > 0) {
+      for (const item of headerAndFooter.footer) {
+        this.buildHF(sheet, item);
+      }
     }
 
     if (opt && opt.mergeCells && opt.mergeCells.length > 0) {
@@ -78,23 +74,39 @@ export class HandleForDom {
     return workbook;
   }
 
+  private buildHF(sheet: Worksheet, item: hfRow) {
+    const row: Row = sheet.addRow(item.data);
+    if (item.height) {
+      row.height = item.height;
+    }
+    row.eachCell((cell: Cell, colNumber: number) => {
+      cell.alignment = {
+        vertical: 'middle',
+        horizontal: 'left',
+        wrapText: this.enbaleWrapText,
+      };
+      cell.font = { size: 12, family: 1, bold: false };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+  }
+
   private buildHead(sheet: Worksheet, dom: any) {
-    const headerRows: any[] = dom
-      .getElementsByTagName('thead')[0]
-      .getElementsByTagName('tr');
+    const headerRows: any[] = dom.getElementsByTagName('thead')[0].getElementsByTagName('tr');
     const [rows, tableSize] = this.drawExcel(headerRows, sheet);
     const rowStyle = tableSize.rowStyle;
     this.setStyle(rows, rowStyle);
   }
 
   private buildBody(sheet: Worksheet, dom: any) {
-    const bodyRows = dom
-      .getElementsByTagName('tbody')[0]
-      .getElementsByTagName('tr');
+    const bodyRows = dom.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
     const [rows, tableSize] = this.drawExcel(bodyRows, sheet);
     const rowStyle = tableSize.rowStyle;
     const colStyle = tableSize.colStyle;
-
     for (let index = 0; index < sheet.columns.length; index++) {
       const col = sheet.columns[index];
       col.width = colStyle[index].width;
@@ -123,10 +135,7 @@ export class HandleForDom {
     }
   }
 
-  private drawExcel(
-    headerRows: any[],
-    sheet: Worksheet,
-  ): [Row[], { rowStyle: any; colStyle: any }] {
+  private drawExcel(headerRows: any[], sheet: Worksheet): [Row[], { rowStyle: any; colStyle: any }] {
     const start = sheet.rowCount;
     const rows = this.buildMatrix(headerRows);
     const rowCount = headerRows.length;
@@ -158,7 +167,6 @@ export class HandleForDom {
         }
         const colSpan = cell.colSpan;
         const rowSpan = cell.rowSpan;
-        console.log(colSpan);
         if (colSpan === 1) {
           colStyle[j] = { width: cell.offsetWidth * this.widthRatio };
         }
@@ -172,10 +180,7 @@ export class HandleForDom {
         let toIndex = i + rowSpan + start;
         this.fillRows(colSpan, rows, i, celIndex, cell, rowSpan);
         if (rowSpan > 1 || colSpan > 1) {
-          needMerge.push(
-            `${INDEX_TO_LETTER[celIndex] + (i + 1 + start)}:${letter +
-              toIndex}`,
-          );
+          needMerge.push(`${INDEX_TO_LETTER[celIndex] + (i + 1 + start)}:${letter + toIndex}`);
         }
         celIndex++;
       }
@@ -194,14 +199,7 @@ export class HandleForDom {
     return [result, tableSize];
   }
 
-  private fillRows(
-    colSpan: any,
-    rows: any[],
-    i: number,
-    celIndex: number,
-    th: any,
-    rowSpan: any,
-  ) {
+  private fillRows(colSpan: any, rows: any[], i: number, celIndex: number, th: any, rowSpan: any) {
     if (colSpan > 1) {
       for (let index = 0; index < colSpan; index++) {
         if (rowSpan > 1) {

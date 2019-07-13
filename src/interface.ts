@@ -30,16 +30,14 @@ export interface Header {
   style?: Style;
 }
 
+export interface hfRow {
+  data: string[];
+  height?: number;
+}
+
 export interface Style {
   alignment?: {
-    horizontal?:
-      | 'left'
-      | 'center'
-      | 'right'
-      | 'fill'
-      | 'justify'
-      | 'centerContinuous'
-      | 'distributed';
+    horizontal?: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed';
     vertical?: 'top' | 'middle' | 'bottom' | 'distributed' | 'justify';
     wrapText?: boolean;
     indent?: number;
@@ -51,10 +49,5 @@ export interface Style {
 export interface ExcelPlugin {
   export(option: ExcelPluginOption): void;
   exportByDom(dom: any, fileName: string): void;
-  exportByDomPlugin(
-    dom: any,
-    fileName: string,
-    opt: any,
-    headerAndFooter: any,
-  ): void;
+  exportByDomPlugin(dom: any, fileName: string, opt: any, headerAndFooter: any): void;
 }

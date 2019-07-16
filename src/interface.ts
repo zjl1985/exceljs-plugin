@@ -12,6 +12,19 @@ export interface ExcelPluginOption {
   enbaleWrapText?: boolean;
 }
 
+export interface ExcelPluginOptionUserDefine {
+  fileName: string;
+  data: any[][];
+  //需要合并的单元格 ['A1:B1','A2:C12']
+  mergeCells?: string[];
+  //列宽 {A:12}
+  columnWidth?: { [key: string]: number };
+  //列样式
+  columnStyle?: { [key: string]: Style };
+  //是否自动换行
+  enbaleWrapText?: boolean;
+}
+
 export interface ExcelPluginByDomOption {
   //需要合并的单元格 ['A1:B1','A2:C12']
   mergeCells?: string[];

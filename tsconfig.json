@@ -13,6 +13,9 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2017", "dom"]
   },
+  "paths": {
+    "exceljs": ["node_modules/exceljs/modern.browser"]
+  },
   "declaration": true,
   "module": "commonjs",
   "moduleResolution": "node",

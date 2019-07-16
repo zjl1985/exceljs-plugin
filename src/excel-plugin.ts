@@ -1,11 +1,5 @@
 import { HandleForDom } from './handle-for-dom';
-import {
-  ExcelPlugin,
-  Header,
-  ExcelPluginOption,
-  ExcelPluginByDomOption,
-  hfRow,
-} from './interface';
+import { ExcelPlugin, Header, ExcelPluginOption, ExcelPluginByDomOption, hfRow, ExcelPluginOptionUserDefine } from './interface';
 import { HandleForData } from './handle-for-data';
 export class ExcelPluginImpl implements ExcelPlugin {
   constructor() {}
@@ -27,5 +21,10 @@ export class ExcelPluginImpl implements ExcelPlugin {
   ): void {
     const handel = new HandleForDom();
     handel.savePlugin(dom, fileName, opt, headerAndFooter);
+  }
+
+  exportUserDefine(opt:ExcelPluginOptionUserDefine){
+      const handel = new HandleForData();
+      handel.saveUserDefine(opt);
   }
 }

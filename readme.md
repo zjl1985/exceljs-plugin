@@ -2,9 +2,13 @@
 
 ## 安装
 
-- 切换到gxnpm源 `nrm use gxnpm`
+### 切换到gxnpm源
 
-- npm: 
+```bash
+nrm use gxnpm
+```
+
+- npm:
 
  ```shell
  npm install exceljs-plugin
@@ -14,6 +18,25 @@
 
 ```shell
 yarn add exceljs-plugin
+```
+
+### 配置
+
+修改项目根目录下的`angular.json`文件
+
+查找`architect`配直节，在下面的`scripts`内加入`"node_modules/exceljs/dist/exceljs.min.js"`
+
+添加后的效果
+
+```json
+ "scripts": [
+    "node_modules/@antv/g2/build/g2.js",
+    "node_modules/@antv/data-set/dist/data-set.min.js",
+    "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
+    "node_modules/ajv/dist/ajv.bundle.js",
+    "node_modules/qrious/dist/qrious.min.js",
+    "node_modules/exceljs/dist/exceljs.min.js"
+ ]
 ```
 
 ## 使用
@@ -99,11 +122,11 @@ GaoxinExcelExport.export(opt);
 
 通过head可以控制显示的列数,比如数据里面有10列,`header`有两列，那么只会导出这2列
 
-### 例子😆
+## 例子😆
 
 下面使用`NG-ZORRO`的`nz-table`组件做一个例子
 
-- #### test.component.html
+- ### test.component.html
 
 ```html
 <div nz-row nzGutter="8">
@@ -158,7 +181,7 @@ GaoxinExcelExport.export(opt);
 </div>
 ```
 
-> #### test.component.ts
+> ### test.component.ts
 
 ```javascript
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -233,7 +256,7 @@ export class TestComponent implements OnInit {
 }
 ```
 
-#### 注意的地方
+## 注意的地方
 
 1. `nz-table` 不是dom
 

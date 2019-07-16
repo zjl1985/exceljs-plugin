@@ -1,9 +1,8 @@
-import * as Excel from 'exceljs/dist/exceljs.min';
 import { Workbook, Worksheet, Row, Cell } from 'exceljs';
 import { INDEX_TO_LETTER } from './basic-data';
 import { FileProcess } from './file-process';
 import { Style, ExcelPluginByDomOption, hfRow } from './interface';
-
+declare const ExcelJS: any;
 export class HandleForDom {
   //占位符
   seat: number = 123456.654321;
@@ -39,7 +38,7 @@ export class HandleForDom {
     opt?: ExcelPluginByDomOption,
     headerAndFooter?: { header?: hfRow[]; footer?: hfRow[] },
   ): Workbook {
-    const workbook: Workbook = new Excel.Workbook();
+    const workbook: Workbook = new ExcelJS.Workbook();
     const sheet: Worksheet = workbook.addWorksheet('sheet1');
     if (headerAndFooter && headerAndFooter.header && headerAndFooter.header.length > 0) {
       for (const item of headerAndFooter.header) {

@@ -1,3 +1,5 @@
+import { Style } from "exceljs";
+
 export interface ExcelPluginOption {
   fileName: string;
   header?: Header[];
@@ -48,16 +50,16 @@ export interface hfRow {
   height?: number;
 }
 
-export interface Style {
-  alignment?: {
-    horizontal?: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed';
-    vertical?: 'top' | 'middle' | 'bottom' | 'distributed' | 'justify';
-    wrapText?: boolean;
-    indent?: number;
-    readingOrder?: 'rtl' | 'ltr';
-    textRotation?: number | 'vertical';
-  };
-}
+// export interface Style {
+//   alignment?: {
+//     horizontal?: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed';
+//     vertical?: 'top' | 'middle' | 'bottom' | 'distributed' | 'justify';
+//     wrapText?: boolean;
+//     indent?: number;
+//     readingOrder?: 'rtl' | 'ltr';
+//     textRotation?: number | 'vertical';
+//   };
+// }
 
 export interface ExcelPlugin {
   export(option: ExcelPluginOption): void;

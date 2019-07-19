@@ -20,10 +20,7 @@ export class HandleForData {
     process.saveFile(workbook, option.fileName.trim());
   }
 
-  public processWorkbook(
-    option: ExcelPluginOption,
-    mybook?: Workbook,
-  ): Workbook {
+  public processWorkbook(option: ExcelPluginOption, mybook?: Workbook): Workbook {
     let workbook: Workbook = mybook ? mybook : new ExcelJS.Workbook();
     const sheet: Worksheet = workbook.addWorksheet('sheet1');
     if (option.header) {
@@ -45,6 +42,15 @@ export class HandleForData {
       for (const cell of option.mergeCells) {
         // @ts-ignore
         sheet.mergeCells(cell);
+      }
+    }
+    if (option.headerFooter) {
+      sheet.headerFooter.differentFirst = true;
+      if (option.headerFooter.firstHeader) {
+        sheet.headerFooter.firstHeader = option.headerFooter.firstHeader;
+      }
+      if (option.headerFooter.firstFooter) {
+        sheet.headerFooter.firstFooter = option.headerFooter.firstFooter;
       }
     }
     return workbook;
@@ -92,4 +98,3 @@ export class HandleForData {
     process.saveFile(workbook, opt.fileName.trim());
   }
 }
-

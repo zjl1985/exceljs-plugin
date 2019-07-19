@@ -1,4 +1,4 @@
-import { Style } from "exceljs";
+import { Font } from 'exceljs';
 
 export interface ExcelPluginOption {
   fileName: string;
@@ -12,6 +12,10 @@ export interface ExcelPluginOption {
   columnStyle?: { [key: string]: Style };
   //是否自动换行
   enbaleWrapText?: boolean;
+  headerFooter?: {
+    firstHeader?: string;
+    firstFooter?: string;
+  };
 }
 
 export interface ExcelPluginOptionUserDefine {
@@ -50,16 +54,19 @@ export interface hfRow {
   height?: number;
 }
 
-// export interface Style {
-//   alignment?: {
-//     horizontal?: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed';
-//     vertical?: 'top' | 'middle' | 'bottom' | 'distributed' | 'justify';
-//     wrapText?: boolean;
-//     indent?: number;
-//     readingOrder?: 'rtl' | 'ltr';
-//     textRotation?: number | 'vertical';
-//   };
-// }
+export interface Style {
+  alignment?: {
+    horizontal?: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed';
+    vertical?: 'top' | 'middle' | 'bottom' | 'distributed' | 'justify';
+    wrapText?: boolean;
+    indent?: number;
+    readingOrder?: 'rtl' | 'ltr';
+    textRotation?: number | 'vertical';
+  };
+  numFmt?: string;
+  font?: Partial<Font>;
+  enbaleWrapText?: boolean;
+}
 
 export interface ExcelPlugin {
   export(option: ExcelPluginOption): void;

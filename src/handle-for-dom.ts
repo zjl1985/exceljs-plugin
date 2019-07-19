@@ -1,7 +1,7 @@
 import { Workbook, Worksheet, Row, Cell } from 'exceljs';
 import { INDEX_TO_LETTER } from './basic-data';
 import { FileProcess } from './file-process';
-import { Style, ExcelPluginByDomOption, hfRow } from './interface';
+import { ExcelPluginByDomOption, hfRow } from './interface';
 declare const ExcelJS: any;
 export class HandleForDom {
   //占位符

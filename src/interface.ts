@@ -16,6 +16,7 @@ export interface ExcelPluginOption {
     firstHeader?: string;
     firstFooter?: string;
   };
+  csv?: boolean;
 }
 
 export interface ExcelPluginOptionUserDefine {

@@ -17,7 +17,7 @@ export class HandleForData {
     }
     const workbook: Workbook = this.processWorkbook(option);
     const process = new FileProcess();
-    process.saveFile(workbook, option.fileName.trim());
+    process.saveFile(workbook, option.fileName.trim(), option.csv);
   }
 
   public processWorkbook(option: ExcelPluginOption, mybook?: Workbook): Workbook {

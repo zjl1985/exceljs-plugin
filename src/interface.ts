@@ -39,6 +39,8 @@ export interface ExcelPluginByDomOption {
   columnWidth?: { [key: string]: number };
   //列样式
   columnStyle?: { [key: string]: Style };
+  //单元格样式
+  cellStyle?: { [key: string]: Style };
   //是否自动换行
   enbaleWrapText?: boolean;
 }

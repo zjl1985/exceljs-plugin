@@ -70,6 +70,11 @@ export class HandleForDom {
         sheet.getColumn(key).style = opt.columnStyle[key];
       }
     }
+    if (opt && opt.cellStyle) {
+      for (const key in opt.columnStyle) {
+        sheet.getCell(key).style = opt.columnStyle[key];
+      }
+    }
     return workbook;
   }
 
@@ -81,7 +86,7 @@ export class HandleForDom {
     row.eachCell((cell: Cell, colNumber: number) => {
       cell.alignment = {
         vertical: 'middle',
-        horizontal: 'left',
+        horizontal: 'center',
         wrapText: this.enbaleWrapText,
       };
       cell.font = { size: 12, family: 1, bold: false };
@@ -174,7 +179,7 @@ export class HandleForDom {
           j--;
           continue;
         }
-        rows[i][celIndex] = displayText;
+        rows[i][celIndex] = displayText.trim();
         let letter = INDEX_TO_LETTER[celIndex + colSpan - 1];
         let toIndex = i + rowSpan + start;
         this.fillRows(colSpan, rows, i, celIndex, cell, rowSpan);

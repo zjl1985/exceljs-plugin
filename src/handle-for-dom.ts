@@ -113,7 +113,11 @@ export class HandleForDom {
     const colStyle = tableSize.colStyle;
     for (let index = 0; index < sheet.columns.length; index++) {
       const col = sheet.columns[index];
-      col.width = colStyle[index].width;
+      if (colStyle[index].width) {
+        col.width = colStyle[index].width;
+      } else {
+        col.width = 32;
+      }
     }
     this.setStyle(rows, rowStyle);
   }

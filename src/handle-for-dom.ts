@@ -113,7 +113,7 @@ export class HandleForDom {
     const colStyle = tableSize.colStyle;
     for (let index = 0; index < sheet.columns.length; index++) {
       const col = sheet.columns[index];
-      if (colStyle[index].width) {
+      if (colStyle.length > 0 && colStyle[index].width !== undefined) {
         col.width = colStyle[index].width;
       } else {
         col.width = 32;

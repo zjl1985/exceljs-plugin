@@ -1,6 +1,6 @@
 {
   "name": "exceljs-plugin",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "plugin for ng",
   "main": "./dist/index.js",
   "author": "zhangjunlong<zjl198544@163.com>",
@@ -28,7 +28,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "exceljs": "^1.13.0",
+    "exceljs": "^1.15.0",
     "file-saver": "^2.0.2"
   }
 }

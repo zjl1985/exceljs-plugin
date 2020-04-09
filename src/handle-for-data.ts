@@ -94,6 +94,12 @@ export class HandleForData {
         sheet.mergeCells(cell);
       }
     }
+
+    if (opt.columnStyle && Object.keys(opt.columnStyle).length > 0) {
+      for (const key in opt.columnStyle) {
+        sheet.getColumn(key).style = opt.columnStyle[key];
+      }
+    }
     const process = new FileProcess();
     process.saveFile(workbook, opt.fileName.trim());
   }

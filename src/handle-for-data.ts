@@ -97,7 +97,9 @@ export class HandleForData {
 
     if (opt.columnStyle && Object.keys(opt.columnStyle).length > 0) {
       for (const key in opt.columnStyle) {
-        sheet.getColumn(key).style = opt.columnStyle[key];
+        for (const styleKey in opt.columnStyle[key]) {
+          sheet.getColumn(key)[styleKey] = opt.columnStyle[key][styleKey];
+        }
       }
     }
     const process = new FileProcess();

@@ -113,7 +113,7 @@ export class HandleForDom {
     const colStyle = tableSize.colStyle;
     for (let index = 0; index < sheet.columns.length; index++) {
       const col = sheet.columns[index];
-      if (colStyle.length > 0 && colStyle[index].width !== undefined) {
+      if (colStyle.length > 0 && colStyle[index] && colStyle[index].width !== undefined) {
         col.width = colStyle[index].width;
       } else {
         col.width = 32;
@@ -186,7 +186,7 @@ export class HandleForDom {
         rows[i][celIndex] = displayText.trim();
         let letter = INDEX_TO_LETTER[celIndex + colSpan - 1];
         let toIndex = i + rowSpan + start;
-        this.fillRows(colSpan, rows, i, celIndex, cell, rowSpan);
+        this.fillRows(colSpan, rows, i, celIndex, displayText.trim(), rowSpan);
         if (rowSpan > 1 || colSpan > 1) {
           needMerge.push(`${INDEX_TO_LETTER[celIndex] + (i + 1 + start)}:${letter + toIndex}`);
         }
@@ -207,22 +207,22 @@ export class HandleForDom {
     return [result, tableSize];
   }
 
-  private fillRows(colSpan: any, rows: any[], i: number, celIndex: number, th: any, rowSpan: any) {
+  private fillRows(colSpan: any, rows: any[], i: number, celIndex: number, text: string, rowSpan: any) {
     if (colSpan > 1) {
       for (let index = 0; index < colSpan; index++) {
         if (rowSpan > 1) {
           for (let rowIndex = 0; rowIndex < rowSpan; rowIndex++) {
-            rows[i + rowIndex][celIndex + index] = th.innerText;
+            rows[i + rowIndex][celIndex + index] = text;
           }
         } else {
-          rows[i][celIndex + index] = th.innerText;
+          rows[i][celIndex + index] = text;
         }
       }
       return;
     }
     if (rowSpan > 1) {
       for (let index = 0; index < rowSpan; index++) {
-        rows[i + index][celIndex] = th.innerText;
+        rows[i + index][celIndex] = text;
       }
     }
   }

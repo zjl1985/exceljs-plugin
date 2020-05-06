@@ -284,7 +284,42 @@ this.table.tableMainElement.nativeElement
 <button>...
 </td>
 ```
-
+## 1.0.21
+  ludaxian提交1.0.21版本.
+    1.修复设置列样式失效bug。
+    2.新增按dom导出、数据导出设置某个单元格样式的功能（实现优先级最高）。
+  > 例子:
+    cellStyle: {
+      A1: {
+        border: null,
+      },
+      A2: {
+        border: null,
+      },
+      E2: {
+        border: null,
+      },
+    },
+    3.新增批量设置单元格样式（实现优先级在列样式之后、单元格样式之前）
+  > 例子:
+    styleToCellList: [
+      {
+        cellStyle: {
+          alignment: {
+            horizontal: 'left',
+            vertical: 'middle',
+          },
+          border: null,
+        },
+        cellList: ['A37', 'A38', 'A39', 'A40', 'A41', 'A42', 'A43', 'A44'],
+      },
+      {
+        cellStyle: {
+          border: null,
+        },
+        cellList: ['A1', 'A2', 'E2'],
+      },
+    ],
 ## 问题
 
 [bug提交](http://172.72.100.37:13530/SoftwareDevelopment/exceljs-plugin/issues)

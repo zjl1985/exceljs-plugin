@@ -102,6 +102,25 @@ export class HandleForData {
         }
       }
     }
+    //批量更改某种样式下的单元格数组
+    if (opt.styleToCellList.length > 0) {
+      opt.styleToCellList.forEach((item) => {
+        const style = item.cellStyle;
+        item.cellList.forEach((cellCode) => {
+          for (const styleKey in style) {
+            sheet.getCell(cellCode)[styleKey] = style[styleKey];
+          }
+        });
+      });
+    }
+
+    if (opt.cellStyle && Object.keys(opt.cellStyle).length > 0) {
+      for (const cellCode in opt.cellStyle) {
+        for (const styleKey in opt.cellStyle[cellCode]) {
+          sheet.getCell(cellCode)[styleKey] = opt.cellStyle[cellCode][styleKey];
+        }
+      }
+    }
     const process = new FileProcess();
     process.saveFile(workbook, opt.fileName.trim());
   }

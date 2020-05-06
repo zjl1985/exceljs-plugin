@@ -65,14 +65,30 @@ export class HandleForDom {
       }
     }
 
-    if (opt && opt.columnStyle) {
+    if (opt.columnStyle && Object.keys(opt.columnStyle).length > 0) {
       for (const key in opt.columnStyle) {
-        sheet.getColumn(key).style = opt.columnStyle[key];
+        for (const styleKey in opt.columnStyle[key]) {
+          sheet.getColumn(key)[styleKey] = opt.columnStyle[key][styleKey];
+        }
       }
     }
-    if (opt && opt.cellStyle) {
-      for (const key in opt.columnStyle) {
-        sheet.getCell(key).style = opt.columnStyle[key];
+    //批量更改某种样式下的单元格数组
+    if (opt.styleToCellList.length > 0) {
+      opt.styleToCellList.forEach((item) => {
+        const style = item.cellStyle;
+        item.cellList.forEach((cellCode) => {
+          for (const styleKey in style) {
+            sheet.getCell(cellCode)[styleKey] = style[styleKey];
+          }
+        });
+      });
+    }
+
+    if (opt.cellStyle && Object.keys(opt.cellStyle).length > 0) {
+      for (const cellCode in opt.cellStyle) {
+        for (const styleKey in opt.cellStyle[cellCode]) {
+          sheet.getCell(cellCode)[styleKey] = opt.cellStyle[cellCode][styleKey];
+        }
       }
     }
     return workbook;

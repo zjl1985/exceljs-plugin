@@ -1,5 +1,4 @@
-import { Font } from 'exceljs';
-
+import { Font, Borders } from 'exceljs';
 export interface ExcelPluginOption {
   fileName: string;
   header?: Header[];
@@ -12,6 +11,13 @@ export interface ExcelPluginOption {
   columnStyle?: { [key: string]: Style };
   //是否自动换行
   enbaleWrapText?: boolean;
+  //批量设置单元格样式（优先级在列样式之后、单元格样式之前）
+  styleToCellList?: {
+    cellStyle: Style;
+    cellList: string[];
+  }[];
+  //单元格样式{A2:{alignment:{horizontal:'left'}}}
+  cellStyle?: { [key: string]: Style };
   headerFooter?: {
     firstHeader?: string;
     firstFooter?: string;
@@ -28,6 +34,13 @@ export interface ExcelPluginOptionUserDefine {
   columnWidth?: { [key: string]: number };
   //列样式
   columnStyle?: { [key: string]: Style };
+  //批量设置单元格样式（优先级在列样式之后、单元格样式之前）
+  styleToCellList?: {
+    cellStyle: Style;
+    cellList: string[];
+  }[];
+  //单元格样式（优先级最高）
+  cellStyle?: { [key: string]: Style };
   //是否自动换行
   enbaleWrapText?: boolean;
 }
@@ -39,7 +52,12 @@ export interface ExcelPluginByDomOption {
   columnWidth?: { [key: string]: number };
   //列样式
   columnStyle?: { [key: string]: Style };
-  //单元格样式
+  //批量设置单元格样式（优先级在列样式之后、单元格样式之前）
+  styleToCellList?: {
+    cellStyle: Style;
+    cellList: string[];
+  }[];
+  //单元格样式{A2:{alignment:{horizontal:'left'}}}
   cellStyle?: { [key: string]: Style };
   //是否自动换行
   enbaleWrapText?: boolean;
@@ -66,6 +84,8 @@ export interface Style {
     readingOrder?: 'rtl' | 'ltr';
     textRotation?: number | 'vertical';
   };
+  //边框设置、默认为'thin',不需要边框直接border:null，设置某一方向border:{left:null}
+  border?: Partial<Borders>;
   numFmt?: string;
   font?: Partial<Font>;
   enbaleWrapText?: boolean;
@@ -74,5 +94,5 @@ export interface Style {
 export interface ExcelPlugin {
   export(option: ExcelPluginOption): void;
   exportByDom(dom: any, fileName: string): void;
-  exportByDomPlugin(dom: any, fileName: string, opt: any, headerAndFooter: any): void;
+  exportByDomPlugin(dom: any, fileName: string, opt: ExcelPluginOption, headerAndFooter: any): void;
 }

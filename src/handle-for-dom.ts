@@ -28,7 +28,9 @@ export class HandleForDom {
     if (opt.enbaleWrapText !== undefined) {
       this.enbaleWrapText = opt.enbaleWrapText;
     }
+
     const workbook: Workbook = this.processWorkbook(dom, opt, headerAndFooter);
+
     const process = new FileProcess();
     process.saveFile(workbook, name);
   }
@@ -40,6 +42,22 @@ export class HandleForDom {
   ): Workbook {
     const workbook: Workbook = new ExcelJS.Workbook();
     const sheet: Worksheet = workbook.addWorksheet('sheet1');
+    sheet.eachRow((row, rowNumber) => {
+      row.eachCell((cell: Cell, colNumber: number) => {
+        cell.alignment = {
+          vertical: 'middle',
+          horizontal: 'left',
+          wrapText: this.enbaleWrapText,
+        };
+        cell.font = { size: 12, family: 1, bold: false };
+        cell.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
+        };
+      });
+    });
     if (headerAndFooter && headerAndFooter.header && headerAndFooter.header.length > 0) {
       for (const item of headerAndFooter.header) {
         this.buildHF(sheet, item);
@@ -141,7 +159,7 @@ export class HandleForDom {
   private setStyle(rows: Row[], rowStyle: any) {
     for (let index = 0; index < rows.length; index++) {
       const row = rows[index];
-      row.height = rowStyle[index].height;
+      //row.height = rowStyle[index].height;
       row.eachCell((cell: Cell, colNumber: number) => {
         cell.alignment = {
           vertical: 'middle',

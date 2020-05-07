@@ -320,6 +320,8 @@ this.table.tableMainElement.nativeElement
         cellList: ['A1', 'A2', 'E2'],
       },
     ],
+## 1.0.23
+    修复不传thead报错、修复不传styleToCellList报错
 ## 问题
 
 [bug提交](http://172.72.100.37:13530/SoftwareDevelopment/exceljs-plugin/issues)

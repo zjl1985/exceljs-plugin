@@ -103,7 +103,7 @@ export class HandleForData {
       }
     }
     //批量更改某种样式下的单元格数组
-    if (opt.styleToCellList.length > 0) {
+    if (opt.styleToCellList && opt.styleToCellList.length > 0) {
       opt.styleToCellList.forEach((item) => {
         const style = item.cellStyle;
         item.cellList.forEach((cellCode) => {

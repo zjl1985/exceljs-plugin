@@ -28,7 +28,6 @@ export class HandleForDom {
     if (opt.enbaleWrapText !== undefined) {
       this.enbaleWrapText = opt.enbaleWrapText;
     }
-
     const workbook: Workbook = this.processWorkbook(dom, opt, headerAndFooter);
 
     const process = new FileProcess();
@@ -91,7 +90,7 @@ export class HandleForDom {
       }
     }
     //批量更改某种样式下的单元格数组
-    if (opt.styleToCellList.length > 0) {
+    if (opt.styleToCellList && opt.styleToCellList.length > 0) {
       opt.styleToCellList.forEach((item) => {
         const style = item.cellStyle;
         item.cellList.forEach((cellCode) => {
@@ -134,10 +133,12 @@ export class HandleForDom {
   }
 
   private buildHead(sheet: Worksheet, dom: any) {
-    const headerRows: any[] = dom.getElementsByTagName('thead')[0].getElementsByTagName('tr');
-    const [rows, tableSize] = this.drawExcel(headerRows, sheet);
-    const rowStyle = tableSize.rowStyle;
-    this.setStyle(rows, rowStyle);
+    if (dom.getElementsByTagName('thead')) {
+      const headerRows: any[] = dom.getElementsByTagName('thead')[0].getElementsByTagName('tr');
+      const [rows, tableSize] = this.drawExcel(headerRows, sheet);
+      const rowStyle = tableSize.rowStyle;
+      this.setStyle(rows, rowStyle);
+    }
   }
 
   private buildBody(sheet: Worksheet, dom: any) {
@@ -148,7 +149,7 @@ export class HandleForDom {
     for (let index = 0; index < sheet.columns.length; index++) {
       const col = sheet.columns[index];
       if (colStyle.length > 0 && colStyle[index] && colStyle[index].width !== undefined) {
-        col.width = colStyle[index].width;
+        col.width = colStyle[index].width | 32;
       } else {
         col.width = 32;
       }

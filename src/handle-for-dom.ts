@@ -82,7 +82,7 @@ export class HandleForDom {
       }
     }
 
-    if (opt.columnStyle && Object.keys(opt.columnStyle).length > 0) {
+    if (opt && opt.columnStyle && Object.keys(opt.columnStyle).length > 0) {
       for (const key in opt.columnStyle) {
         for (const styleKey in opt.columnStyle[key]) {
           sheet.getColumn(key)[styleKey] = opt.columnStyle[key][styleKey];
@@ -90,7 +90,7 @@ export class HandleForDom {
       }
     }
     //批量更改某种样式下的单元格数组
-    if (opt.styleToCellList && opt.styleToCellList.length > 0) {
+    if (opt && opt.styleToCellList && opt.styleToCellList.length > 0) {
       opt.styleToCellList.forEach((item) => {
         const style = item.cellStyle;
         item.cellList.forEach((cellCode) => {
@@ -101,7 +101,7 @@ export class HandleForDom {
       });
     }
 
-    if (opt.cellStyle && Object.keys(opt.cellStyle).length > 0) {
+    if (opt && opt.cellStyle && Object.keys(opt.cellStyle).length > 0) {
       for (const cellCode in opt.cellStyle) {
         for (const styleKey in opt.cellStyle[cellCode]) {
           sheet.getCell(cellCode)[styleKey] = opt.cellStyle[cellCode][styleKey];

@@ -137,7 +137,7 @@ export class HandleForDom {
       const headerRows: any[] = dom.getElementsByTagName('thead')[0].getElementsByTagName('tr');
       const [rows, tableSize] = this.drawExcel(headerRows, sheet);
       const rowStyle = tableSize.rowStyle;
-      this.setStyle(rows, rowStyle);
+      this.setStyle(rows, rowStyle, headerRows);
     }
   }
 
@@ -149,24 +149,39 @@ export class HandleForDom {
     for (let index = 0; index < sheet.columns.length; index++) {
       const col = sheet.columns[index];
       if (colStyle.length > 0 && colStyle[index] && colStyle[index].width !== undefined) {
-        col.width = colStyle[index].width | 32;
+        col.width = colStyle[index].width;
       } else {
         col.width = 32;
       }
     }
-    this.setStyle(rows, rowStyle);
+    this.setStyle(rows, rowStyle, bodyRows);
   }
 
-  private setStyle(rows: Row[], rowStyle: any) {
+  private setStyle(rows: Row[], rowStyle: any, domRows) {
     for (let index = 0; index < rows.length; index++) {
       const row = rows[index];
-      //row.height = rowStyle[index].height;
+      let tds;
+      if (domRows) {
+        tds = domRows[index].getElementsByTagName('td');
+        if (tds === null || tds.length === 0) {
+          tds = domRows[index].getElementsByTagName('th');
+        }
+      }
+      let cellIndex = 0;
       row.eachCell((cell: Cell, colNumber: number) => {
+        let textAlign: 'left' | 'center' | 'right' | 'fill' | 'justify' | 'centerContinuous' | 'distributed' = 'left';
+        if (tds && tds[cellIndex]) {
+          if (tds[cellIndex].style['textAlign'] !== '') {
+            textAlign = tds[cellIndex].style['textAlign'];
+          }
+        }
+        cellIndex++;
         cell.alignment = {
           vertical: 'middle',
-          horizontal: 'center',
+          horizontal: textAlign,
           wrapText: this.enbaleWrapText,
         };
+
         cell.font = { size: 12, family: 1, bold: false };
         cell.border = {
           top: { style: 'thin' },
@@ -237,6 +252,7 @@ export class HandleForDom {
         celIndex++;
       }
     }
+
     for (const item of rows) {
       result.push(sheet.addRow(item));
     }

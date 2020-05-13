@@ -218,7 +218,16 @@ export class HandleForDom {
           j--;
           continue;
         }
-        rows[i][celIndex] = displayText.trim();
+        const cellType = cell.getAttribute('excel-cell-type');
+        switch (cellType) {
+          case 'number':
+            rows[i][celIndex] = Number(displayText.trim());
+            break;
+          default:
+            rows[i][celIndex] = displayText.trim();
+            break;
+        }
+
         let letter = INDEX_TO_LETTER[celIndex + colSpan - 1];
         let toIndex = i + rowSpan + start;
         this.fillRows(colSpan, rows, i, celIndex, displayText.trim(), rowSpan);
